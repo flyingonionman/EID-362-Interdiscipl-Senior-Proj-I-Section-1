@@ -6,7 +6,7 @@ if camera is None:
     print('No Camera')
     exit()
 
-fps = 5 # frame per second
+fps = 24 # frame per second
 pre_frame = None  # use previous frame as comparison
 
 play_music = False
@@ -39,7 +39,7 @@ while True:
         thresh = cv2.dilate(thresh, None, iterations=2)
         image, contours, hierarchy = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         for c in contours:
-            if cv2.contourArea(c) < 1000: # sensitivity
+            if cv2.contourArea(c) < 1500: # sensitivity
                 continue
             else:
                 #print(cv2.contourArea(c))
