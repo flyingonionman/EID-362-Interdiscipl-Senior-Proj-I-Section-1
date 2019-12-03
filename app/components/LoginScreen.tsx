@@ -20,6 +20,7 @@ interface State {
   emailTouched: boolean;
   passwordTouched: boolean;
   value:string;
+  client:any;
 }
 
 class LoginScreen extends React.Component<{}, State> {
@@ -28,6 +29,7 @@ class LoginScreen extends React.Component<{}, State> {
     email: "",
     password: "",
     value:"",
+    client:"undefined",
     emailTouched: false,
     passwordTouched: false
   };
@@ -56,39 +58,37 @@ class LoginScreen extends React.Component<{}, State> {
 
   handleLoginPress = () => {
     console.log("Login button pressed");
+    this.state.client.auth.loginWithCredential(new AnonymousCredential()).then(user => {
+      console.log(`Successfully logged in as user ${user.id}`);
+      this.setState({ currentUserId: user.id })
+    }).then( ()=> this.props.navigation.navigate('Home')
+    ).catch(err => {
+      console.log(`Failed to log in anonymously: ${err}`);
+      this.setState({ currentUserId: undefined })
+    });
   };
 
   handleSignupPress = () => {
     console.log("Sign up button pressed");
-/*     const client = Stitch.initializeDefaultAppClient("babymon-jsvil");
-    const db = client.getServiceClient(RemoteMongoClient.factory, 'mongodb-atlas').db('babymon');
-
-    db
-      .collection("users")
-      .insertOne({
-        owner_id: this.state.email,
-        password: this.state.password
-      })
-      .catch(console.error); */
   };
 
-
   componentDidMount() {
-    const client = Stitch.initializeDefaultAppClient("babymon-jsvil");
-    /*
-    const db = client.getServiceClient(RemoteMongoClient.factory, 'mongodb-atlas').db('babymon');
-
-    client.auth.loginWithCredential(new AnonymousCredential()).then(user =>
-      db.collection('users').updateOne({owner_id: client.auth.user.id}, {$set:{number:42}}, {upsert:true})
-    ).then(() =>
-      db.collection('users').find({owner_id: client.auth.user.id}, { limit: 100}).asArray()
-    ).then(docs => {
-        console.log("Found docs", docs)
-        console.log("[MongoDB Stitch] Connected to Stitch")
-    }).catch(err => {
-        console.error(err)
-    }); */
+    this._loadClient();
   }
+
+  _loadClient() {
+    Stitch.initializeDefaultAppClient('babymon-jsvil').then(client => {
+      this.setState({ client });
+ 
+      if(client.auth.isLoggedIn) {
+        this.state.client.auth.logout().then(user => {
+          console.log(`Successfully logged out`);
+          this.setState({ currentUserId: undefined })
+      })
+      }
+    });
+  }
+ 
 
   render() {
     const {

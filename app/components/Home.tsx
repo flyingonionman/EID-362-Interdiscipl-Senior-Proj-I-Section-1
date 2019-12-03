@@ -14,6 +14,10 @@ class Home extends React.Component<{}, State> {
         email: ""
       };
 
+    handleLogoutPress = () => {
+        
+    };
+      
   render() { 
     const {
         email
@@ -22,8 +26,8 @@ class Home extends React.Component<{}, State> {
     return (
       <View style={styles.container}>
         <Button
-            label={strings.HOME}
-            onPress={this.handleLoginPress}
+            label={strings.LOGOUT}
+            onPress={this.handleLogoutPress}
           />
       </View>
     );
