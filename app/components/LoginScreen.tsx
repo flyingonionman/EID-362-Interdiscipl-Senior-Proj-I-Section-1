@@ -1,18 +1,22 @@
 import * as React from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View,Alert } from "react-native";
 import Button from "./Button";
 import FormTextInput from "./FormTextInput";
 import imageLogo from "../assets/images/logo.png"
 import colors from "../config/colors";
 import strings from "../config/strings";
+var Vibration = require('react-native-vibration');
 
 import {
   Stitch,
   RemoteMongoClient,
-  AnonymousCredential
+  AnonymousCredential,
+  UserPasswordCredential,
+  UserPasswordAuthProviderClient
 } from "mongodb-stitch-react-native-sdk";
 
 const APP_ID = "babymon-jsvil";
+const DURATION = 500;
 
 interface State {
   email: string;
@@ -25,6 +29,10 @@ interface State {
 
 class LoginScreen extends React.Component<{}, State> {
   passwordInputRef = React.createRef<FormTextInput>();
+  static navigationOptions = {
+    header: null
+  }
+
   readonly state: State = {
     email: "",
     password: "",
@@ -58,18 +66,36 @@ class LoginScreen extends React.Component<{}, State> {
 
   handleLoginPress = () => {
     console.log("Login button pressed");
-    this.state.client.auth.loginWithCredential(new AnonymousCredential()).then(user => {
+    const credential = new UserPasswordCredential(this.state.email, this.state.password)
+  
+    this.state.client.auth.loginWithCredential(credential).then(user => {
       console.log(`Successfully logged in as user ${user.id}`);
       this.setState({ currentUserId: user.id })
     }).then( ()=> this.props.navigation.navigate('Home')
     ).catch(err => {
-      console.log(`Failed to log in anonymously: ${err}`);
+      console.log(`Failed to log with the information: ${err}`);
+      Alert.alert(
+        'Wrong Credentials !',
+        'Please check your credentials',
+        [
+          {
+            text: 'Ok',
+            onPress: () => console.log('Ok Pressed'),
+            style: 'cancel',
+          },
+        ],
+        {cancelable: false},
+      ); 
       this.setState({ currentUserId: undefined })
     });
   };
 
   handleSignupPress = () => {
     console.log("Sign up button pressed");
+    const emailPasswordClient = Stitch.defaultAppClient.auth.getProviderClient(UserPasswordAuthProviderClient.factory);
+    emailPasswordClient.registerWithEmail(this.state.email, this.state.password)
+    .then(() => console.log("Successfully sent account confirmation email!"))
+    .catch(err => console.error("Error registering new user:", err));
   };
 
   componentDidMount() {
@@ -144,6 +170,8 @@ class LoginScreen extends React.Component<{}, State> {
           <Button
             label={strings.SIGNUP}
             onPress={this.handleSignupPress}
+            disabled={!email || !password}
+
           />
         </View>
       </View>

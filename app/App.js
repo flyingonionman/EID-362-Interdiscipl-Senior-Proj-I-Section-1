@@ -10,7 +10,7 @@ const MainNavigator = createStackNavigator({
 },
 {
   initialRouteName: 'Login',
-  headerMode: 'screen' 
+  headerMode: 'screen' ,
 });
 
 const App = createAppContainer(MainNavigator);

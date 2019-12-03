@@ -10,12 +10,16 @@ interface State {
   }
 
 class Home extends React.Component<{}, State> {
+    static navigationOptions = {
+        header: null
+      }
+
     readonly state: State = {
         email: ""
       };
 
     handleLogoutPress = () => {
-        
+        console.log("log out")
     };
       
   render() { 
