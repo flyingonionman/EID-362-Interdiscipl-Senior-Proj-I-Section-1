@@ -1,9 +1,13 @@
+
 const strings = {
-    LOGIN: "Log In",
-    SIGNUP: "Sign Up",
-    EMAIL_PLACEHOLDER: "paulrobinson@gmail.com",
-    PASSWORD_PLACEHOLDER: "1234xx!",
-    WELCOME_TO_LOGIN: "Welcome to the login screen!"
-  };
-  
-  export default strings;
+  LOGIN: "Log In",
+  SIGNUP: "Sign Up",
+  WELCOME_TO_LOGIN: "Welcome to the login screen!",
+  EMAIL_PLACEHOLDER: "Email",
+  PASSWORD_PLACEHOLDER: "Password",
+  EMAIL_REQUIRED: "Email is required",
+  PASSWORD_REQUIRED: "Password is required",
+  HOME:"Welcome back !"
+};
+
+export default strings;

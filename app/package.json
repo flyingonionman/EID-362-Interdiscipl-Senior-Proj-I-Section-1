@@ -10,9 +10,17 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "install": "^0.13.0",
+    "moment": "^2.24.0",
+    "mongodb-stitch-browser-sdk": "^4.7.1",
+    "mongodb-stitch-react-native-sdk": "^4.7.1",
+    "mongodb-stitch-react-native-services-mongodb-remote": "^4.7.1",
     "nodejs": "0.0.0",
+    "npm": "^6.13.1",
     "react": "16.9.0",
-    "react-native": "0.61.5"
+    "react-native": "0.61.5",
+    "react-native-confetti": "^0.1.0",
+    "react-native-swipeout": "^2.3.6"
   },
   "devDependencies": {
     "@babel/core": "7.7.4",
