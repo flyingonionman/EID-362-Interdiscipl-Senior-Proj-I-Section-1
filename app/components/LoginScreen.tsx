@@ -10,7 +10,7 @@ import {
   Stitch,
   RemoteMongoClient,
   AnonymousCredential
-} from "mongodb-stitch-browser-sdk";
+} from "mongodb-stitch-react-native-sdk";
 
 const APP_ID = "babymon-jsvil";
 
@@ -75,7 +75,7 @@ class LoginScreen extends React.Component<{}, State> {
 
   componentDidMount() {
     const client = Stitch.initializeDefaultAppClient("babymon-jsvil");
-
+    /*
     const db = client.getServiceClient(RemoteMongoClient.factory, 'mongodb-atlas').db('babymon');
 
     client.auth.loginWithCredential(new AnonymousCredential()).then(user =>
@@ -87,7 +87,7 @@ class LoginScreen extends React.Component<{}, State> {
         console.log("[MongoDB Stitch] Connected to Stitch")
     }).catch(err => {
         console.error(err)
-    });
+    }); */
   }
 
   render() {
