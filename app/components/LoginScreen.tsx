@@ -95,7 +95,25 @@ class LoginScreen extends React.Component<{}, State> {
     const emailPasswordClient = Stitch.defaultAppClient.auth.getProviderClient(UserPasswordAuthProviderClient.factory);
     emailPasswordClient.registerWithEmail(this.state.email, this.state.password)
     .then(() => console.log("Successfully sent account confirmation email!"))
-    .catch(err => console.error("Error registering new user:", err));
+    .catch(err => 
+      {
+      if (this.state.password.length < 6 )  {
+        Alert.alert(
+          'Password too short ! !',
+          'Password should be between 6 and 128 characters',
+          [
+            {
+              text: 'Ok',
+              onPress: () => console.log('Ok Pressed'),
+              style: 'cancel',
+            },
+          ],
+          {cancelable: false},
+        ); 
+      }
+      else{
+        console.error("Error registering new user:", err)}
+    });
   };
 
   componentDidMount() {

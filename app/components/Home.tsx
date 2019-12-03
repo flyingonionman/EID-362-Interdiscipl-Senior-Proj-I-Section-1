@@ -19,9 +19,18 @@ class Home extends React.Component<{}, State> {
       };
 
     handleLogoutPress = () => {
-        console.log("log out")
+        console.log("log out");
+        this.props.navigation.navigate('Login')
+    };
+     
+    handleSettingsPress = () => {
+      console.log("Settings");
     };
       
+    handleViewcamPress = () => {
+      console.log("View camera");
+    };
+  
   render() { 
     const {
         email
@@ -30,8 +39,16 @@ class Home extends React.Component<{}, State> {
     return (
       <View style={styles.container}>
         <Button
-            label={strings.LOGOUT}
+            label={strings.SETTINGS}
             onPress={this.handleLogoutPress}
+          />
+        <Button
+            label={strings.VIEWCAM}
+            onPress={this.handleSettingsPress}
+          />
+        <Button
+            label={strings.LOGOUT}
+            onPress={this.handleViewcamPress}
           />
       </View>
     );
@@ -40,7 +57,8 @@ class Home extends React.Component<{}, State> {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: .1,
+        marginTop : 12,
         backgroundColor: colors.WHITE,
         alignItems: "center",
         justifyContent: "space-between"
