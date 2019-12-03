@@ -29,6 +29,10 @@ class LoginScreen extends React.Component<{}, State> {
     console.log("Login button pressed");
   };
 
+  handleSignupPress = () => {
+    console.log("Sign up button pressed");
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -48,6 +52,11 @@ class LoginScreen extends React.Component<{}, State> {
             label={strings.LOGIN}
             onPress={this.handleLoginPress}
           />
+
+          <Button
+            label={strings.SIGNUP}
+            onPress={this.handleSignupPress}
+          />
         </View>
       </View>
     );
@@ -63,7 +72,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     flex: 1,
-    width: "100%",
+    width: "80%",
     resizeMode: "contain",
     alignSelf: "center"
   },
