@@ -47,6 +47,7 @@ while True:
                 else:
                     #print(cv2.contourArea(c))
                     print("Motion detected")
+                    motion_time = time.time()
                     break
 
         pre_frame = gray_img
