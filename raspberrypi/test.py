@@ -42,10 +42,17 @@ while True:
             if cv2.contourArea(c) < 1500: # sensitivity
                 continue
             else:
+<<<<<<< HEAD
                 if time.time() - motion_time < 2:
                     continue
                 else:
                 #print(cv2.contourArea(c))
+=======
+                if time.time() - motion_time < 5:
+                    continue
+                else:
+                    #print(cv2.contourArea(c))
+>>>>>>> 960a6c427d877af602a9e90aa52cc8aba401e46e
                     print("Motion detected")
                     motion_time = time.time()
                     break

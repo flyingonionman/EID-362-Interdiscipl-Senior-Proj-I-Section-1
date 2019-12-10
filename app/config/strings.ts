@@ -8,7 +8,9 @@ const strings = {
   PASSWORD_PLACEHOLDER: "Password",
   EMAIL_REQUIRED: "Email is required",
   PASSWORD_REQUIRED: "Password is required",
-  HOME:"Welcome back !"
+  HOME:"Welcome back !",
+  SETTINGS: "Settings",
+  VIEWCAM: "View Camera"
 };
 
 export default strings;
