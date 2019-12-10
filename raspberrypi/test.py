@@ -6,10 +6,10 @@ if camera is None:
     print('No Camera')
     exit()
 
-fps = 5 # frame per second
+fps = 24 # frame per second
 pre_frame = None  # use previous frame as comparison
 
-play_music = False
+motion_time = 0
 
 while True:
     start = time.time()
@@ -22,7 +22,7 @@ while True:
         time.sleep(1.0/fps - seconds)
 
     cv2.imshow('img', cur_frame)
-    # press q to exit
+    # press esc to exit
     key = cv2.waitKey(30) & 0xff
     if key == 27:
         break
@@ -39,12 +39,16 @@ while True:
         thresh = cv2.dilate(thresh, None, iterations=2)
         image, contours, hierarchy = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         for c in contours:
-            if cv2.contourArea(c) < 1000: # sensitivity
+            if cv2.contourArea(c) < 1500: # sensitivity
                 continue
             else:
+                if time.time() - motion_time < 2:
+                    continue
+                else:
                 #print(cv2.contourArea(c))
-                print("Motion detected")
-                break
+                    print("Motion detected")
+                    motion_time = time.time()
+                    break
 
         pre_frame = gray_img
 
