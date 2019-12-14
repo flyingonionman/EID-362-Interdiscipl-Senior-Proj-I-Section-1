@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, StyleSheet, View,Alert } from "react-native";
+import { Image, StyleSheet, View,Alert ,Text} from "react-native";
 import Button from "./Button";
 import FormTextInput from "./FormTextInput";
 import imageLogo from "../assets/images/logo.png"
@@ -153,8 +153,12 @@ class LoginScreen extends React.Component<{}, State> {
 
     return (
       <View style={styles.container}>
-        <Image source={imageLogo} style={styles.logo} />
+        
         <View style={styles.form}>
+
+          <Text style={styles.title}>
+            Login
+          </Text>
           <FormTextInput
             value={this.state.email}
             onChangeText={this.handleEmailChange}
@@ -182,14 +186,11 @@ class LoginScreen extends React.Component<{}, State> {
             label={strings.LOGIN}
             onPress={this.handleLoginPress}
             disabled={!email || !password}
-
           />
 
           <Button
             label={strings.SIGNUP}
             onPress={this.handleSignupPress}
-            disabled={!email || !password}
-
           />
         </View>
       </View>
@@ -198,22 +199,25 @@ class LoginScreen extends React.Component<{}, State> {
 }
 
 const styles = StyleSheet.create({
+  title:{
+    alignItems: "center",
+    fontFamily:'Kollektif',
+    fontSize:48,
+    marginBottom:"15%",
+
+  },
   container: {
     flex: 1,
     backgroundColor: colors.WHITE,
     alignItems: "center",
     justifyContent: "space-between"
   },
-  logo: {
-    flex: 1,
-    width: "80%",
-    resizeMode: "contain",
-    alignSelf: "center"
-  },
   form: {
     flex: 1,
     justifyContent: "center",
-    width: "80%"
+    width: "80%",
+    textAlign : "left",
+
   }
 });
 
