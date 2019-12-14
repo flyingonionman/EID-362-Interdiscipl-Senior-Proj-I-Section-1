@@ -19,19 +19,10 @@ class Home extends React.Component<{}, State> {
         email: ""
       };
 
-    handleLogoutPress = () => {
+    handleGohomePress = () => {
         console.log("log out");
-        this.props.navigation.navigate('Login')
+        this.props.navigation.navigate('Home');
     };
-     
-    handleSettingsPress = () => {
-      console.log("Settings");
-    };
-      
-    handleViewcamPress = () => {
-      console.log("View camera");
-    };
-  
   render() { 
     const {
         email
@@ -39,32 +30,38 @@ class Home extends React.Component<{}, State> {
 
     return (
       <View style={styles.container}>
-        <WebView source={{ uri: 'https://google.com' }} />
-
-        <Button
-            label={strings.SETTINGS}
-            onPress={this.handleLogoutPress}
-          />
-        <Button
-            label={strings.VIEWCAM}
-            onPress={this.handleSettingsPress}
-          />
-        <Button
-            label={strings.LOGOUT}
-            onPress={this.handleViewcamPress}
-          />
+        <View style={styles.webview}>
+          <WebView source={{ uri: 'http://192.168.2.105:5000' }} />
+        </View>
+        <View style={styles.buttons}>
+          <Button
+              label={strings.GOHOME}
+              onPress={this.handleGohomePress}
+            />
+        </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: .1,
-        marginTop : 12,
+      container: {
+        flex: 1,
+        marginTop :"10%",
         backgroundColor: colors.WHITE,
         alignItems: "center",
         justifyContent: "space-between"
+      },
+      webview:{
+        flex: 2,
+        width:"80%"
+      },
+      buttons:{
+        flex: 1,
+        width:"80%",
+        alignItems:"flex-end",
+        marginTop:"10%",
+        justifyContent:"flex-end"
       }
 });
 

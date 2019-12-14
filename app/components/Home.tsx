@@ -61,6 +61,7 @@ class Home extends React.Component<{}, State> {
       
     handleViewcamPress = () => {
       console.log("View camera");
+      this.props.navigation.navigate('Camera');
 
     };
   
@@ -71,18 +72,24 @@ class Home extends React.Component<{}, State> {
 
     return (
       <View style={styles.container}>
-        <Button
-            label={strings.LOGOUT}
-            onPress={this.handleLogoutPress}
-          />
-        <Button
+
+        <View style={styles.webview}>
+          <WebView source={{ uri: 'https://facebook.github.io/react-native/' }} />
+        </View>
+        <View style={styles.buttons}>
+          <Button
+              label={strings.VIEWCAM}
+              onPress={this.handleViewcamPress}
+            />
+          <Button
             label={strings.SETTINGS}
             onPress={this.handleSettingsPress}
           />
-        <Button
-            label={strings.VIEWCAM}
-            onPress={this.handleViewcamPress}
+          <Button
+              label={strings.LOGOUT}
+              onPress={this.handleLogoutPress}
           />
+          </View>
       </View>
     );
   }
@@ -91,11 +98,22 @@ class Home extends React.Component<{}, State> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop :0,
+        marginTop :"10%",
         backgroundColor: colors.WHITE,
         alignItems: "center",
         justifyContent: "space-between"
-      }
+      },
+    webview:{
+      flex: 2,
+      width:"80%"
+    },
+    buttons:{
+      flex: 1,
+      width:"80%",
+      alignItems:"flex-end",
+      marginTop:"10%",
+      justifyContent:"flex-end"
+    }
 });
 
 export default Home;
