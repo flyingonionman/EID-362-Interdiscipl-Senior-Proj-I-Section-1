@@ -10,7 +10,8 @@ const strings = {
   PASSWORD_REQUIRED: "Password is required",
   HOME:"Welcome back !",
   SETTINGS: "Settings",
-  VIEWCAM: "View Camera"
+  VIEWCAM: "View Camera",
+  GOHOME: "Go back home"
 };
 
 export default strings;

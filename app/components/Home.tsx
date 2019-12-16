@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View,Alert,BackHandler} from "react-native";
+import WebView from "react-native-webview";
 import Button from "./Button";
 import colors from "../config/colors";
 import strings from "../config/strings";
@@ -10,6 +11,11 @@ interface State {
   }
 
 class Home extends React.Component<{}, State> {
+
+    constructor(props) {
+      super(props)
+    }
+
     static navigationOptions = {
         header: null
       }
@@ -17,10 +23,36 @@ class Home extends React.Component<{}, State> {
     readonly state: State = {
         email: ""
       };
+      
+    componentDidMount() {
+      BackHandler.addEventListener('hardwareBackPress', this.backPress)
+    }
+
+    componentWillUnmount() {
+      BackHandler.removeEventListener('hardwareBackPress', this.backPress)
+    }
+
+    backPress = () => true
 
     handleLogoutPress = () => {
         console.log("log out");
-        this.props.navigation.navigate('Login')
+        Alert.alert(
+          'Log Out',
+          'Are you sure you want to log out?',
+          [
+            {
+              text: 'Yes',
+              onPress: () => this.props.navigation.navigate('Login')
+              ,
+              style: 'cancel',
+            },
+            {
+              text: 'No',
+              style: 'cancel',
+            },
+          ],
+          {cancelable: false},
+        ); 
     };
      
     handleSettingsPress = () => {
@@ -29,6 +61,8 @@ class Home extends React.Component<{}, State> {
       
     handleViewcamPress = () => {
       console.log("View camera");
+      this.props.navigation.navigate('Camera');
+
     };
   
   render() { 
@@ -38,18 +72,24 @@ class Home extends React.Component<{}, State> {
 
     return (
       <View style={styles.container}>
-        <Button
+
+        <View style={styles.webview}>
+          <WebView source={{ uri: 'https://facebook.github.io/react-native/' }} />
+        </View>
+        <View style={styles.buttons}>
+          <Button
+              label={strings.VIEWCAM}
+              onPress={this.handleViewcamPress}
+            />
+          <Button
             label={strings.SETTINGS}
-            onPress={this.handleLogoutPress}
-          />
-        <Button
-            label={strings.VIEWCAM}
             onPress={this.handleSettingsPress}
           />
-        <Button
-            label={strings.LOGOUT}
-            onPress={this.handleViewcamPress}
+          <Button
+              label={strings.LOGOUT}
+              onPress={this.handleLogoutPress}
           />
+          </View>
       </View>
     );
   }
@@ -57,12 +97,23 @@ class Home extends React.Component<{}, State> {
 
 const styles = StyleSheet.create({
     container: {
-        flex: .1,
-        marginTop : 12,
+        flex: 1,
+        marginTop :"10%",
         backgroundColor: colors.WHITE,
         alignItems: "center",
         justifyContent: "space-between"
-      }
+      },
+    webview:{
+      flex: 2,
+      width:"80%"
+    },
+    buttons:{
+      flex: 1,
+      width:"80%",
+      alignItems:"flex-end",
+      marginTop:"10%",
+      justifyContent:"flex-end"
+    }
 });
 
 export default Home;

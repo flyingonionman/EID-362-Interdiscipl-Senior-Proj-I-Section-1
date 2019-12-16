@@ -10,6 +10,7 @@ class VideoCamera():
         # Open a camera
         self.camera = cv2.VideoCapture(-1)
 
+
     def get_frame(self):
         fps = 24 #set frames per second
         global pre_frame
@@ -38,6 +39,7 @@ class VideoCamera():
                 thresh = cv2.threshold(img_delta, 25, 255, cv2.THRESH_BINARY)[1]
                 thresh = cv2.dilate(thresh, None, iterations=2)
                 _,contours, hierarchy = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
                 for c in contours:
                     if cv2.contourArea(c) < 1500: # sensitivity
                         continue
