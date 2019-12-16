@@ -38,6 +38,7 @@ class VideoCamera():
       # [END use_access_token]
       resp = requests.post(FCM_URL, data=json.dumps(fcm_message), headers=headers)
 
+<<<<<<< HEAD
     def _build_common_message(self):
       
       return {
@@ -50,6 +51,9 @@ class VideoCamera():
         }
       }
     
+=======
+
+>>>>>>> 821fbbf1466ff23222da8d986adf704a588395e2
     def get_frame(self):
         fps = 24 #set frames per second
         global pre_frame
@@ -73,6 +77,7 @@ class VideoCamera():
                 thresh = cv2.threshold(img_delta, 25, 255, cv2.THRESH_BINARY)[1]
                 thresh = cv2.dilate(thresh, None, iterations=2)
                 _,contours, hierarchy = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
                 for c in contours:
                     if cv2.contourArea(c) < 1500: # sensitivity
                         continue
@@ -97,4 +102,7 @@ class VideoCamera():
                 return jpeg.tobytes()
             else:
                 return None
+<<<<<<< HEAD
 
+=======
+>>>>>>> 821fbbf1466ff23222da8d986adf704a588395e2
