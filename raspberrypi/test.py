@@ -2,6 +2,7 @@ import cv2
 import time
 
 camera = cv2.VideoCapture(0)
+
 if camera is None:
     print('No Camera')
     exit()
@@ -47,12 +48,12 @@ while True:
                 else:
                     #print(cv2.contourArea(c))
                     if time.time() - motion_time < 5:
-                    	continue
+                        continue
                     else:
-                    	#print(cv2.contourArea(c))
-                    	print("Motion detected")
-                    	motion_time = time.time()
-                    	break
+                        #print(cv2.contourArea(c))
+                        print("Motion detected")
+                        motion_time = time.time()
+                        break
 
         pre_frame = gray_img
 
