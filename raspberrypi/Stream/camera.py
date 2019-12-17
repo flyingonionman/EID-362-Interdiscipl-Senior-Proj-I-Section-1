@@ -98,7 +98,4 @@ class VideoCamera():
                 return jpeg.tobytes()
             else:
                 return None
-<<<<<<< HEAD
 
-=======
->>>>>>> 821fbbf1466ff23222da8d986adf704a588395e2
