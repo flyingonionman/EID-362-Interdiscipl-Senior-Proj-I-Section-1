@@ -38,7 +38,6 @@ class VideoCamera():
       # [END use_access_token]
       resp = requests.post(FCM_URL, data=json.dumps(fcm_message), headers=headers)
 
-<<<<<<< HEAD
     def _build_common_message(self):
       
       return {
@@ -50,10 +49,7 @@ class VideoCamera():
           }
         }
       }
-    
-=======
 
->>>>>>> 821fbbf1466ff23222da8d986adf704a588395e2
     def get_frame(self):
         fps = 24 #set frames per second
         global pre_frame
