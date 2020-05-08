@@ -1,5 +1,16 @@
 import cv2
 import time
+import argparse
+import json
+import requests
+
+from oauth2client.service_account import ServiceAccountCredentials
+
+PROJECT_ID = 'seniorproject-63bee'
+BASE_URL = 'https://fcm.googleapis.com'
+FCM_ENDPOINT = 'v1/projects/' + PROJECT_ID + '/messages:send'
+FCM_URL = BASE_URL + '/' + FCM_ENDPOINT
+SCOPES = ['https://www.googleapis.com/auth/firebase.messaging']
 
 pre_frame = None
 motion_time = 0
@@ -9,23 +20,46 @@ class VideoCamera():
     def __init__(self):
         # Open a camera
         self.camera = cv2.VideoCapture(-1)
+        
 
+    def _get_access_token(self):
+     
+      credentials = ServiceAccountCredentials.from_json_keyfile_name(
+          'service-account.json', SCOPES)
+      access_token_info = credentials.get_access_token()
+      return access_token_info.access_token
+
+    def _send_fcm_message(self, fcm_message):
+      # [START use_access_token]
+      headers = {
+        'Authorization': 'Bearer ' + self._get_access_token(),
+        'Content-Type': 'application/json; UTF-8',
+      }
+      # [END use_access_token]
+      resp = requests.post(FCM_URL, data=json.dumps(fcm_message), headers=headers)
+
+    def _build_common_message(self):
+      
+      return {
+        'message': {
+          'topic': 'motion',
+          'notification': {
+            'title': 'Motion detected !',
+            'body': 'motion detected from camera'
+          }
+        }
+      }
 
     def get_frame(self):
         fps = 24 #set frames per second
         global pre_frame
         global motion_time
+
         while True:
-            start = time.time()
             res, cur_frame = self.camera.read()
             if res != True:
                 break
-            end = time.time()
-            seconds = end - start
-            # make sure each second has correct no. of frames
-            if seconds < 1.0/fps:
-                time.sleep(1.0/fps - seconds)
-
+            
             # RGB to Gray
             gray_img = cv2.cvtColor(cur_frame, cv2.COLOR_BGR2GRAY)
             gray_img = cv2.resize(gray_img, (500, 500))
@@ -50,6 +84,8 @@ class VideoCamera():
                         else:
                             # print when motion detected
                             # add output here if needed
+                            common_message = self._build_common_message()
+                            self._send_fcm_message(common_message)
                             print("Motion detected")
                             motion_time = time.time()
                             break
@@ -62,3 +98,4 @@ class VideoCamera():
                 return jpeg.tobytes()
             else:
                 return None
+

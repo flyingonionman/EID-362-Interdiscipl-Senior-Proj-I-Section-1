@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of videos</title>
+</head>
+
+<body>
+    <form action="/videos/search">
+        <input type="text" name="tag" placeholder="Search tag">
+        <button type="submit">Search</button>
+    </form>
+    <ul>
+        {% for video in videos %}
+        <li>
+            <a href="{{ video["link"] }}" target="_blank">{{ video["link"] }}</a>
+            <form action="/videos/tags/{{video["_id"]}}" method="GET">
+                <button>
+                    Show tags
+                </button>
+            </form>
+            <form action="/videos/delete/{{video["_id"]}}" method="GET">
+                <button>
+                    Delete
+                </button>
+            </form>
+        </li>
+
+        {% endfor %}
+    </ul>
+
+</body>
+
+</html>

@@ -1,5 +1,9 @@
 import * as React from "react";
+<<<<<<< HEAD
+import { Image, StyleSheet, View,Alert,BackHandler} from "react-native";
+=======
 import { Image, StyleSheet, View,Alert,BackHandler,AsyncStorage } from "react-native";
+>>>>>>> 821fbbf1466ff23222da8d986adf704a588395e2
 import WebView from "react-native-webview";
 import Button from "./Button";
 import colors from "../config/colors";
@@ -24,6 +28,16 @@ class Home extends React.Component<{}, State> {
     readonly state: State = {
         email: ""
       };
+      
+    componentDidMount() {
+      BackHandler.addEventListener('hardwareBackPress', this.backPress)
+    }
+
+    componentWillUnmount() {
+      BackHandler.removeEventListener('hardwareBackPress', this.backPress)
+    }
+
+    backPress = () => true
 
       
     async checkPermission() {
@@ -161,7 +175,11 @@ class Home extends React.Component<{}, State> {
       <View style={styles.container}>
 
         <View style={styles.webview}>
+<<<<<<< HEAD
+          <WebView source={{ uri: 'https://facebook.github.io/react-native/' }} />
+=======
           <WebView source={{ uri: 'https://google.com' }} />
+>>>>>>> 821fbbf1466ff23222da8d986adf704a588395e2
         </View>
         <View style={styles.buttons}>
           <Button
