@@ -29,7 +29,6 @@ class Home extends React.Component<{}, State> {
     async checkPermission() {
       const enabled = await firebase.messaging().hasPermission();
       if (enabled) {
-        console.log('ooga token');
           this.getToken();
       } else {
           this.requestPermission();
@@ -44,7 +43,6 @@ class Home extends React.Component<{}, State> {
           fcmToken = await firebase.messaging().getToken();
           if (fcmToken) {
               // user has a device token
-              console.log('got token');
               await AsyncStorage.setItem('fcmToken', fcmToken);
           }
       }
@@ -53,7 +51,6 @@ class Home extends React.Component<{}, State> {
     async requestPermission() {
       try {
           await firebase.messaging().requestPermission();
-          console.log('ooga rejected');
           this.getToken();
       } catch (error) {
           // User has rejected permissions
@@ -63,6 +60,9 @@ class Home extends React.Component<{}, State> {
 
     componentDidMount() {
       BackHandler.addEventListener('hardwareBackPress', this.backPress);
+      firebase.messaging().subscribeToTopic("motion");
+      firebase.messaging().subscribeToTopic("noise");
+
       this.checkPermission();
       this.createNotificationListeners(); //add this line
 
@@ -78,7 +78,6 @@ class Home extends React.Component<{}, State> {
       /*
       * Triggered when a particular notification has been received in foreground
       * */
-      console.log("lol I'm fucked")
 
       this.notificationListener = firebase.notifications().onNotification((notification) => {
 
@@ -145,7 +144,6 @@ class Home extends React.Component<{}, State> {
     };
   
     showAlert(title, body) {
-      console.log('Kill me')
       Alert.alert(
         title, body,
         [
