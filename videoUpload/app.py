@@ -5,8 +5,8 @@ from flask import Flask, render_template, request, redirect
 from bson.objectid import ObjectId
 
 aws = {
-    'aws_access_key_id': 'AKIASEJ4XFHAYDGTDVWG',
-    'aws_secret_access_key': '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',
+    'aws_access_key_id': '',
+    'aws_secret_access_key': '',
     'bucket': 'babyvideo',
     'region': 'us-east-2'
 }
