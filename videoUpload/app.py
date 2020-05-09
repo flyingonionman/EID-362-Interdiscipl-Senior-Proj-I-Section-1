@@ -33,7 +33,7 @@ def index():
         videos = col.find()
         return render_template('index.html', videos=videos)
     except:
-        return "Mongodb error"
+        return "Mongodb error ooga"
 
 
 @app.route('/videos/add/<name>', methods=['POST'])
