@@ -1,9 +1,5 @@
 import * as React from "react";
-<<<<<<< HEAD
 import { Image, StyleSheet, View,Alert,BackHandler} from "react-native";
-=======
-import { Image, StyleSheet, View,Alert,BackHandler,AsyncStorage } from "react-native";
->>>>>>> 821fbbf1466ff23222da8d986adf704a588395e2
 import WebView from "react-native-webview";
 import Button from "./Button";
 import colors from "../config/colors";
@@ -148,9 +144,13 @@ class Home extends React.Component<{}, State> {
     };
      
     handleSettingsPress = () => {
-      console.log("Settings");
+      this.props.navigation.navigate('Setting');
     };
       
+    handleSearchPress = () => {
+      this.props.navigation.navigate('Search');
+    };
+
     handleViewcamPress = () => {
       console.log("View camera");
       this.props.navigation.navigate('Camera');
@@ -175,11 +175,7 @@ class Home extends React.Component<{}, State> {
       <View style={styles.container}>
 
         <View style={styles.webview}>
-<<<<<<< HEAD
-          <WebView source={{ uri: 'https://facebook.github.io/react-native/' }} />
-=======
-          <WebView source={{ uri: 'https://google.com' }} />
->>>>>>> 821fbbf1466ff23222da8d986adf704a588395e2
+            <Image style={styles.profile} source={ require('../assets/images/hippo.jpg') } />
         </View>
         <View style={styles.buttons}>
           <Button
@@ -190,6 +186,12 @@ class Home extends React.Component<{}, State> {
             label={strings.SETTINGS}
             onPress={this.handleSettingsPress}
           />
+
+          <Button
+              label={strings.SEARCH}
+              onPress={this.handleSearchPress}
+          />
+
           <Button
               label={strings.LOGOUT}
               onPress={this.handleLogoutPress}
@@ -209,8 +211,9 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
       },
     webview:{
-      flex: 2,
-      width:"80%"
+      flex: 1.5,
+      width:"80%",
+      marginBottom: "10%"
     },
     buttons:{
       flex: 1,
@@ -218,6 +221,10 @@ const styles = StyleSheet.create({
       alignItems:"flex-end",
       marginTop:"10%",
       justifyContent:"flex-end"
+    },
+    profile:{
+      flex:2,
+      width:"100%"
     }
 });
 

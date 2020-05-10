@@ -11,7 +11,8 @@ const strings = {
   HOME:"Welcome back !",
   SETTINGS: "Settings",
   VIEWCAM: "View Camera",
-  GOHOME: "Go back home"
+  GOHOME: "Go back home",
+  SEARCH: "Search videos"
 };
 
 export default strings;

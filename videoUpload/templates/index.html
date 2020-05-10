@@ -3,26 +3,39 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/styles2.css') }}">
+
     <title>List of videos</title>
 </head>
 
 <body>
-    <form action="/videos/search">
-        <input type="text" name="tag" placeholder="Search tag">
+    <form id="search" action="/videos/search">
+        <input type="text" name="tag" placeholder="Search for tags">
         <button type="submit">Search</button>
     </form>
     <ul>
         {% for video in videos %}
         <li>
-            <a href="{{ video["link"] }}" target="_blank">{{ video["link"] }}</a>
+            <video width="320" height="240" controls>
+                <source src="{{ video["link"] }}" type="video/mp4">
+            </video>
+
             <form action="/videos/tags/{{video["_id"]}}" method="GET">
-                <button>
+                <button styles="border: none;
+                background-color: #428AF8;
+                color: white;
+                margin: 2% 5%;
+                padding: 4% 6%;">
                     Show tags
                 </button>
             </form>
             <form action="/videos/delete/{{video["_id"]}}" method="GET">
-                <button>
+                <button styles="border: none;
+                background-color: #428AF8;
+                color: white;
+                margin: 2% 5%;
+                padding: 4% 6%;">                   
                     Delete
                 </button>
             </form>
