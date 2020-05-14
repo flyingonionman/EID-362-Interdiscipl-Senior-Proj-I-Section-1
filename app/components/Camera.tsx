@@ -31,7 +31,7 @@ class Home extends React.Component<{}, State> {
     return (
       <View style={styles.container}>
         <View style={styles.webview}>
-          <WebView source={{ uri: 'http://192.168.2.105:5000' }} />
+          <WebView source={{ uri: 'http://192.168.1.123:5000' }} />
         </View>
         <View style={styles.buttons}>
           <Button
