@@ -3,9 +3,6 @@ import time
 import argparse
 import json
 import requests
-import pyaudio
-import wave
-import audioop
 
 from oauth2client.service_account import ServiceAccountCredentials
 
@@ -23,8 +20,6 @@ class VideoCamera():
     def __init__(self):
         # Open a camera
         self.camera = cv2.VideoCapture(-1)
-        # Open record
-        self.audio = pyaudio.PyAudio()
         
 
     def _get_access_token(self):
@@ -56,32 +51,11 @@ class VideoCamera():
       }
 
     def get_frame(self):
-        CHUNK = 1024
-        FORMAT = pyaudio.paInt16
-        CHANNELS = 1
-        RATE = 44100
-        RECORD_SECONDS = 5
-        threshold = 5000
-
-        p = pyaudio.PyAudio()
-
-        stream = p.open(format=FORMAT,
-                        channels=CHANNELS,
-                        rate=RATE,
-                        input=True,
-                        frames_per_buffer=CHUNK)
-
         fps = 24 #set frames per second
         global pre_frame
         global motion_time
 
         while True:
-            data = stream.read(CHUNK)
-            #frames.append(data)
-            rms = audioop.rms(data, 2)
-            if rms > threshold:
-                print('noise detected')
-
             res, cur_frame = self.camera.read()
             if res != True:
                 break
@@ -124,3 +98,4 @@ class VideoCamera():
                 return jpeg.tobytes()
             else:
                 return None
+
