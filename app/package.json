@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "install": "^0.13.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "mongodb-stitch-browser-sdk": "^4.7.1",
     "mongodb-stitch-react-native-sdk": "^4.7.1",
     "mongodb-stitch-react-native-services-mongodb-remote": "^4.7.1",
